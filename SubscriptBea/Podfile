@@ -10,4 +10,7 @@ target 'SubscriptBea' do
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'IQKeyboardManagerSwift'
+
+# Banners and alert messages
+pod 'SwiftMessages', '~> 5.0'
 end
