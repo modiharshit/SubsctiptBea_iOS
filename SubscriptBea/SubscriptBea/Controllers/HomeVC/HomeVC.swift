@@ -8,23 +8,36 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+class HomeVC: HMBaseVC {
 
+    //MARK:- OUTLETS
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var btnProfile: UIButton!
+    
+    @IBOutlet weak var btnPlus: UIButton!
+    
+    //MARK:- CLASS METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.registerTableViewCell()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    class func instantiate() -> HomeVC {
+        return UIStoryboard.main().instantiateViewController(withIdentifier: HomeVC.identifier()) as! HomeVC
     }
-    */
-
+    
+    func registerTableViewCell() {
+        tableView.register(UINib(nibName: HomeTableViewCell.reuseIdentifier(), bundle: nil), forCellReuseIdentifier: HomeTableViewCell.reuseIdentifier())
+    }
+    
+    @IBAction func btnProfileAction(_ sender: Any) {
+        let objProfileVC = ProfileVC.instantiate()
+        self.push(vc: objProfileVC)
+    }
+    
+    @IBAction func btnPlusAction(_ sender: Any) {
+        let obj = DetailVC.instantiate()
+        self.push(vc: obj)
+    }
 }

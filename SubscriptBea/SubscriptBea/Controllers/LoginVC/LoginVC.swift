@@ -8,23 +8,31 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+class LoginVC: HMBaseVC {
 
+    //MARK:- OUTLETS
+    @IBOutlet weak var txtEmail: HMTextField!
+    @IBOutlet weak var txtPassword: HMTextField!
+    
+    @IBOutlet weak var btnLogin: HMButton!
+    @IBOutlet weak var btnSignup: UIButton!
+    
+    //MARK:- CLASS METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    class func instantiate() -> LoginVC {
+        return UIStoryboard.main().instantiateViewController(withIdentifier: LoginVC.identifier()) as! LoginVC
     }
-    */
-
+    
+    @IBAction func btnLoginAction(_ sender: Any) {
+    }
+    
+    @IBAction func btnSignupAction(_ sender: Any) {
+        let obj = SignupVC.instantiate()
+        self.push(vc: obj)
+    }
+    
 }

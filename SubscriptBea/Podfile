@@ -13,4 +13,9 @@ pod 'IQKeyboardManagerSwift'
 
 # Banners and alert messages
 pod 'SwiftMessages', '~> 5.0'
+
+pod 'SVProgressHUD'
+
+# Object Mapping
+pod 'ObjectMapper'
 end
