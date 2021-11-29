@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginVC: HMBaseVC {
 
@@ -28,6 +29,17 @@ class LoginVC: HMBaseVC {
     }
     
     @IBAction func btnLoginAction(_ sender: Any) {
+        self.signIn { (success) in
+            if success {
+                
+                //SET ROOT CONTROLLER
+                let scened = SceneDelegate()
+                scened.setRootViewController()
+                
+            } else {
+                self.showAlertWithMessage(message: "Failed to Login.")
+            }
+        }
     }
     
     @IBAction func btnSignupAction(_ sender: Any) {
@@ -35,4 +47,41 @@ class LoginVC: HMBaseVC {
         self.push(vc: obj)
     }
     
+}
+
+extension LoginVC {
+    
+    func validateTextFields() {
+        
+    }
+    
+    func signIn( completionBlock: @escaping (_ success: Bool) -> Void) {
+        Auth.auth().signIn(withEmail: self.txtEmail.text!, password: self.txtPassword.text!) { (result, error) in
+            if let error = error, let _ = AuthErrorCode(rawValue: error._code) {
+                completionBlock(false)
+            } else {
+                
+                guard let userID = Auth.auth().currentUser?.uid else { return }
+                print(userID)
+                
+                self.ref.child("users").child(userID).observeSingleEvent(of: .value, with: { snapshot in
+                    // Get user value
+                    let value = snapshot.value as? NSDictionary
+                    let userId = value?["id"] as? String ?? ""
+                    let firstName = value?["firstName"] as? String ?? ""
+                    let lastName = value?["lastName"] as? String ?? ""
+                    let email = value?["email"] as? String ?? ""
+                    
+                    
+                    let user = User(id: userId, firstName: firstName, lastName: lastName, email: email, profilePicture: "")
+                    UserManager.sharedManager().activeUser = user
+                    
+                }) { error in
+                    print(error.localizedDescription)
+                }
+                
+                completionBlock(true)
+            }
+        }
+    }
 }

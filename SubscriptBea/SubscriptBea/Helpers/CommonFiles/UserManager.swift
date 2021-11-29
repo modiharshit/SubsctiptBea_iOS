@@ -54,7 +54,8 @@ class UserManager: NSObject {
      Save current user data
      */
     func saveActiveUser() {
-        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: self.activeUser!) as AnyObject?, forKey: Constants.UserDefaultKeys.ACTIVE_USER_KEY)
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject:self.activeUser!) as AnyObject?,forKey: Constants.UserDefaultKeys.ACTIVE_USER_KEY)
+        
         UserDefaults.standard.synchronize()
     }
     
@@ -90,28 +91,10 @@ class UserManager: NSObject {
         }
     }
     
-    func printUserObject() {
-        if self.activeUser != nil {
-            debugPrint("Access token: \(String(describing: self.activeUser.accessToken))")
-            debugPrint("id: \(String(describing: self.activeUser.id))")
-        }
-    }
-    
     func isUserLoggedIn() -> Bool {
         guard let _ = UserDefaults.standard.object(forKey: Constants.UserDefaultKeys.ACTIVE_USER_KEY)
             else {
                 return false
-        }
-        return true
-    }
-    
-    func isProfileComplete() -> Bool {
-        guard let _ = UserDefaults.standard.object(forKey: Constants.UserDefaultKeys.ACTIVE_USER_KEY)
-            else {
-                return false
-        }
-        if self.activeUser.fullName.isNullOrEmpty() || self.activeUser.profilePicture == nil {
-            return false
         }
         return true
     }
@@ -124,7 +107,8 @@ class UserManager: NSObject {
     func setSplashAsRoot() {
         SVProgressHUD.dismiss()
         self.deleteActiveUser()
-        appDel.setRootViewController()
+        //appDel.setRootViewController()
+        sceneDel.setRootViewController()
     }
     
 }

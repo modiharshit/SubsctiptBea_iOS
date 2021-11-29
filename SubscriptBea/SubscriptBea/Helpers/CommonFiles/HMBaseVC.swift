@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class HMBaseVC: UIViewController {
     
-    var tableViews = UITableView()
+    let ref = Database.database().reference()
     
     class func identifier() -> String {
         return String(describing: self)
@@ -24,4 +25,11 @@ class HMBaseVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func showAlertWithMessage(message: String){
+        let  alertController = UIAlertController(title: applicationName(), message: message, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+                print("Handle Ok logic here")
+            }))
+        self.present(alertController, animated: true, completion: nil)
+    }
 }

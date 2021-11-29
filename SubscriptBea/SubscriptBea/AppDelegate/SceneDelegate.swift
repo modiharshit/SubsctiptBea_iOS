@@ -14,29 +14,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
-            
-            if UserManager.sharedManager().isUserLoggedIn() {
-                // Move to HomeVC
-                let nav: NavigationController = UIStoryboard.main().instantiateViewController(withIdentifier: "NavigationController") as! NavigationController
-                let obj = HomeVC.instantiate()
-                nav.setViewControllers([obj], animated: false)
-                nav.isNavigationBarHidden = false
-                self.window?.rootViewController = nav
-                self.window?.makeKeyAndVisible()
-            } else {
-                
-                let nav: NavigationController = UIStoryboard.main().instantiateViewController(withIdentifier: "NavigationController") as! NavigationController
-                let obj = LoginVC.instantiate()
-                nav.setViewControllers([obj], animated: false)
-                nav.isNavigationBarHidden = true
-                self.window?.rootViewController = nav
-                self.window?.makeKeyAndVisible()
-                
-            }
-            
+                        
+            self.setRootViewController()
         }
     }
 
+    func setRootViewController() {
+        if UserManager.sharedManager().isUserLoggedIn() {
+            // Move to HomeVC
+            let nav: NavigationController = UIStoryboard.main().instantiateViewController(withIdentifier: "NavigationController") as! NavigationController
+            let obj = HomeVC.instantiate()
+            nav.setViewControllers([obj], animated: false)
+            nav.isNavigationBarHidden = true
+            self.window?.rootViewController = nav
+            self.window?.makeKeyAndVisible()
+        } else {
+            
+            let nav: NavigationController = UIStoryboard.main().instantiateViewController(withIdentifier: "NavigationController") as! NavigationController
+            let obj = LoginVC.instantiate()
+            nav.setViewControllers([obj], animated: false)
+            nav.isNavigationBarHidden = true
+            self.window?.rootViewController = nav
+            self.window?.makeKeyAndVisible()
+            
+        }
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
