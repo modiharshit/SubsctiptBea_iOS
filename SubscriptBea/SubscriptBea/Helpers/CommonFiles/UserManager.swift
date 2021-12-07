@@ -100,7 +100,6 @@ class UserManager: NSObject {
     }
     
     func logout() {
-        SVProgressHUD.show(withStatus: "Logging out")
         self.deleteActiveUser()
     }
 }
