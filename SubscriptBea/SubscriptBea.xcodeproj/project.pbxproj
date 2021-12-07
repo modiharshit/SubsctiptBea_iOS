@@ -40,6 +40,8 @@
 		FAE6286A275163350058A652 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE62868275163350058A652 /* Main.storyboard */; };
 		FAE6286C275163370058A652 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE6286B275163370058A652 /* Assets.xcassets */; };
 		FAE6286F275163370058A652 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAE6286D275163370058A652 /* LaunchScreen.storyboard */; };
+		FAF79025275F2EBD00FFB5B5 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF79023275F2EBC00FFB5B5 /* Date+Additions.swift */; };
+		FAF79026275F2EBD00FFB5B5 /* NSDate+Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF79024275F2EBC00FFB5B5 /* NSDate+Formatters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		FAE6286B275163370058A652 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAE6286E275163370058A652 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAE62870275163370058A652 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAF79023275F2EBC00FFB5B5 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
+		FAF79024275F2EBC00FFB5B5 /* NSDate+Formatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Formatters.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				FA70A19427517FFE00D9686D /* Helper.swift */,
+				FAF79022275F2EBC00FFB5B5 /* NSDate */,
 				FA70A18F27517F5300D9686D /* String */,
 				FA70A18827517B4100D9686D /* CommonFiles */,
 			);
@@ -273,6 +278,15 @@
 			path = SubscriptBea;
 			sourceTree = "<group>";
 		};
+		FAF79022275F2EBC00FFB5B5 /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				FAF79023275F2EBC00FFB5B5 /* Date+Additions.swift */,
+				FAF79024275F2EBC00FFB5B5 /* NSDate+Formatters.swift */,
+			);
+			path = NSDate;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,6 +404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAF79026275F2EBD00FFB5B5 /* NSDate+Formatters.swift in Sources */,
 				FA70A18527517B3500D9686D /* HMMessage.swift in Sources */,
 				FA70A19227517F5300D9686D /* String+Attributions.swift in Sources */,
 				FA70A18327517B3500D9686D /* HMButton.swift in Sources */,
@@ -409,6 +424,7 @@
 				FACE961F27531E880066C6E9 /* HMBaseVC.swift in Sources */,
 				FA70A17927516C8C00D9686D /* LoginVC.swift in Sources */,
 				FA70A17527516C6D00D9686D /* HomeVC.swift in Sources */,
+				FAF79025275F2EBD00FFB5B5 /* Date+Additions.swift in Sources */,
 				FA99966B275348650089E563 /* NavigationController.swift in Sources */,
 				FA70A18727517B3500D9686D /* HMLabel.swift in Sources */,
 				FA70A17327516C5F00D9686D /* DetailVC.swift in Sources */,

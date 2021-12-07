@@ -53,28 +53,29 @@ class HomeVC: HMBaseVC {
 }
 
 extension HomeVC {
- 
+    
     func getSubscriptions() {
         self.arrSubscriptions.removeAll()
         
         if let userID = self.user.id {
             let placeRef = self.ref.child("users").child(userID).child("subscriptions")
-
-                    placeRef.observeSingleEvent(of: .value, with: { snapshot in
-                        for child in snapshot.children {
-                            let snap = child as! DataSnapshot
-                            let placeDict = snap.value as! [String: Any]
-                            
-                            let id = placeDict["id"] as! String
-                            let title = placeDict["title"] as! String
-            //                let info = placeDict["subscriptionTitle"] as! String
-            //                let moreInfo = placeDict["moreinfo"] as! String
-                            let subscriptionData = Subscription(id: id, subscriptionTitle: title, subscriptionType: "tio", subscriptionAmount: "200")
-                            print(subscriptionData)
-                            self.arrSubscriptions.append(subscriptionData)
-                        }
-                        self.tableView.reloadData()
-                    })
+            
+            placeRef.observeSingleEvent(of: .value, with: { snapshot in
+                for child in snapshot.children {
+                    let snap = child as! DataSnapshot
+                    let placeDict = snap.value as! [String: Any]
+                    
+                    let id = placeDict["id"] as! String
+                    let title = placeDict["title"] as! String
+                    let date = NSDate.now
+                    //                let info = placeDict["subscriptionTitle"] as! String
+                    //                let moreInfo = placeDict["moreinfo"] as! String
+                    let subscriptionData = Subscription(id: id, subscriptionTitle: title, subscriptionType: "tio", subscriptionAmount: "200", subscriptionStartDate: date)
+                    print(subscriptionData)
+                    self.arrSubscriptions.append(subscriptionData)
+                }
+                self.tableView.reloadData()
+            })
         }
     }
 }

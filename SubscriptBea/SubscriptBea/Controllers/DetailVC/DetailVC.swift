@@ -8,18 +8,23 @@
 
 import UIKit
 import Firebase
+import IQKeyboardManagerSwift
+import IQDropDownTextField
 
 class DetailVC: HMBaseVC {
 
+    var type = ["Weekly","Bi-weekly","Monthly","Quaterly","Half-yearly","Annual"]
+    
     var user = User()
     var subscriptionData = Subscription()
     var isNew : Bool = false
+    var datePicker = UIDatePicker()
     
     @IBOutlet weak var lblTitle: UILabel!
     
     @IBOutlet weak var txtTitle: HMTextField!
-    @IBOutlet weak var txtSubscriptionType: HMTextField!
-    @IBOutlet weak var txtStartDate: HMTextField!
+    @IBOutlet weak var txtSubscriptionType: IQDropDownTextField!
+    @IBOutlet weak var txtStartDate: IQDropDownTextField!
     @IBOutlet weak var txtAmount: HMTextField!
     
     @IBOutlet weak var btnSave: HMButton!
@@ -27,6 +32,9 @@ class DetailVC: HMBaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initializeTextField()
+        self.initializeTypeTextField()
+        
         if self.isNew {
             self.lblTitle.text = "Add Subscription"
             self.btnDeleteSubscription.isHidden = true
@@ -49,6 +57,26 @@ class DetailVC: HMBaseVC {
     
     func loadData() {
         self.txtTitle.text = self.subscriptionData.subscriptionTitle
+    }
+    
+    
+    func initializeTextField() {
+        
+        self.txtStartDate.dropDownMode = .datePicker
+        self.txtStartDate.placeholder = "Select Subscription Start Date"
+        
+        self.txtStartDate.datePicker.minimumDate = Date().dateBeforeDays(days: 730) //MINIMUM 2 Years
+        self.txtStartDate.datePicker.maximumDate = Date().dateAfterDays(days: 730) //MAXIMUM 2 Years
+        self.txtStartDate.dateTimeFormatter = appDateFormatterWithSingleHourFormat()
+        
+        self.txtStartDate.keyboardToolbar.doneBarButton.setTarget(self, action: #selector(self.doneAction(_:)))
+        
+        self.txtStartDate.delegate = self
+    }
+    
+    func initializeTypeTextField() {
+        self.txtSubscriptionType.isOptionalDropDown = false
+        self.txtSubscriptionType.itemList = self.type
     }
     
     func showDeleteConfirmation() {
@@ -116,5 +144,15 @@ extension DetailVC {
             HMMessage.showSuccessWithMessage(message: "Profile updated successfully.")
         }
         
+    }
+}
+
+extension DetailVC: IQDropDownTextFieldDelegate {
+    
+    // MARK: - IQDropDownTextFieldDelegate
+    
+    @objc func doneAction(_ sender : IQDropDownTextField) {
+        self.subscriptionData.subscriptionStartDate = sender.dateTimePicker.date
+        self.txtStartDate.date = sender.dateTimePicker.date
     }
 }

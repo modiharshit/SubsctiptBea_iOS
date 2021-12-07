@@ -18,16 +18,18 @@ class Subscription: NSObject, Mappable, NSCopying, NSCoding {
     var subscriptionTitle: String?
     var subscriptionType: String?
     var subscriptionAmount: String?
+    var subscriptionStartDate: Date?
     
-    init(id: String?, subscriptionTitle: String?, subscriptionType: String?, subscriptionAmount: String?) {
+    init(id: String?, subscriptionTitle: String?, subscriptionType: String?, subscriptionAmount: String?, subscriptionStartDate: Date?) {
         self.id = id
         self.subscriptionTitle = subscriptionTitle
         self.subscriptionType = subscriptionType
         self.subscriptionAmount = subscriptionAmount
+        self.subscriptionStartDate = subscriptionStartDate
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        return Subscription(id: id, subscriptionTitle: subscriptionTitle, subscriptionType: subscriptionType, subscriptionAmount: subscriptionAmount)
+        return Subscription(id: id, subscriptionTitle: subscriptionTitle, subscriptionType: subscriptionType, subscriptionAmount: subscriptionAmount, subscriptionStartDate: subscriptionStartDate)
     }
     
     override init() {
@@ -35,6 +37,7 @@ class Subscription: NSObject, Mappable, NSCopying, NSCoding {
         self.subscriptionTitle = nil
         self.subscriptionType = nil
         self.subscriptionAmount = nil
+        self.subscriptionStartDate = nil
     }
     
     // MARK: ObjectMapper Initalizers
@@ -55,7 +58,7 @@ class Subscription: NSObject, Mappable, NSCopying, NSCoding {
         subscriptionTitle <- map["subscriptionTitle"]
         subscriptionType <- map["subscriptionType"]
         subscriptionAmount <- map["subscriptionAmount"]
-        
+        subscriptionStartDate <- map["subscriptionStartDate"]
     }
     
     // MARK: NSCoding Protocol
@@ -65,6 +68,7 @@ class Subscription: NSObject, Mappable, NSCopying, NSCoding {
         self.subscriptionTitle = aDecoder.decodeObject(forKey: "subscriptionTitle") as? String
         self.subscriptionType = aDecoder.decodeObject(forKey: "subscriptionType") as? String
         self.subscriptionAmount = aDecoder.decodeObject(forKey: "subscriptionAmount") as? String
+        self.subscriptionStartDate = aDecoder.decodeObject(forKey: "subscriptionStartDate") as? Date
         
     }
 
@@ -73,6 +77,8 @@ class Subscription: NSObject, Mappable, NSCopying, NSCoding {
         aCoder.encode(subscriptionTitle, forKey: "subscriptionTitle")
         aCoder.encode(subscriptionType, forKey: "subscriptionType")
         aCoder.encode(subscriptionAmount, forKey: "subscriptionAmount")
+        aCoder.encode(subscriptionStartDate, forKey: "subscriptionStartDate")
+        
     }
 }
 
