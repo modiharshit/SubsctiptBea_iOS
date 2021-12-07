@@ -22,6 +22,7 @@ class HomeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -35,8 +36,10 @@ class HomeTableViewCell: UITableViewCell {
         return String(describing: self)
     }
     
-    func configureCell() {
-        
+    func configureCell(subscriptionData: Subscription) {
+        self.lblTitle.text = subscriptionData.subscriptionTitle
+        self.lblAmount.text = subscriptionData.subscriptionAmount
+        self.lblDueDate.text = subscriptionData.subscriptionType
     }
     
 }

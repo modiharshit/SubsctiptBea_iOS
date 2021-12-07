@@ -33,8 +33,8 @@ class LoginVC: HMBaseVC {
             if success {
                 
                 //SET ROOT CONTROLLER
-                let scened = SceneDelegate()
-                scened.setRootViewController()
+                let obj = HomeVC.instantiate()
+                self.push(vc: obj)
                 
             } else {
                 self.showAlertWithMessage(message: "Failed to Login.")
@@ -75,12 +75,12 @@ extension LoginVC {
                     
                     let user = User(id: userId, firstName: firstName, lastName: lastName, email: email, profilePicture: "")
                     UserManager.sharedManager().activeUser = user
-                    
+                
+                    completionBlock(true)
                 }) { error in
                     print(error.localizedDescription)
+                    completionBlock(false)
                 }
-                
-                completionBlock(true)
             }
         }
     }

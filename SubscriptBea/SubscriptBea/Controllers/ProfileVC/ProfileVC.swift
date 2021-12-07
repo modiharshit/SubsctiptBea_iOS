@@ -24,10 +24,10 @@ class ProfileVC: HMBaseVC {
     @IBOutlet weak var btnUpdateProfile: HMButton!
     @IBOutlet weak var btnLogout: HMButton!
     
-    var user = User()
+    var profileImage: UIImage?
     var imagePicker = UIImagePickerController()
     
-    var profileImage: UIImage?
+    var user = User()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,23 +41,8 @@ class ProfileVC: HMBaseVC {
     func loadData() {
         self.user = UserManager.sharedManager().activeUser
         
-        self.txtFirstName.text = self.user.firstName
-        self.txtLastName.text = self.user.lastName
-        self.txtEmail.text = self.user.email
-    }
-    
-    func updateUser() {
-        if let userId = self.user.id, userId.count > 0 {
-            self.ref.child("users").child(userId).setValue([
-                "id": self.user.id,
-                "firstName" : self.txtFirstName.text!,
-                "lastName" : self.txtLastName.text!,
-                "email" : self.user.email
-            ])
-            let user = User(id: self.user.id, firstName: self.txtFirstName.text, lastName: self.txtLastName.text, email: self.user.email, profilePicture: "")
-            UserManager.sharedManager().activeUser = user
-        }
-        
+        self.getUserProfile()
+        self.getSubscriptions()
     }
     
     func showLogoutConfirmation() {
@@ -66,6 +51,8 @@ class ProfileVC: HMBaseVC {
         
         alert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { (_) in
             UserManager.sharedManager().logout()
+            let obj = LoginVC.instantiate()
+            self.push(vc: obj)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
@@ -122,5 +109,53 @@ extension ProfileVC :  UIImagePickerControllerDelegate, UINavigationControllerDe
         self.profileImage = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
         self.imgProfile.image = profileImage
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileVC {
+    
+    func getSubscriptions() {
+        if let userID = self.user.id {
+            let placeRef = self.ref.child("users").child(userID).child("subscriptions")
+            
+            placeRef.observeSingleEvent(of: .value, with: { snapshot in
+                self.lblTotalSubscriptions.text = "\(snapshot.childrenCount)"
+            })
+        }
+    }
+    
+    func getUserProfile() {
+        if let userID = self.user.id {
+            self.ref.child("users").child(userID).observeSingleEvent(of: .value, with: { snapshot in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                let userId = value?["id"] as? String ?? ""
+                let firstName = value?["firstName"] as? String ?? ""
+                let lastName = value?["lastName"] as? String ?? ""
+                let email = value?["email"] as? String ?? ""
+                
+                
+                let user = User(id: userId, firstName: firstName, lastName: lastName, email: email, profilePicture: "")
+                UserManager.sharedManager().activeUser = user
+                
+                self.txtFirstName.text = firstName
+                self.txtLastName.text = lastName
+                self.txtEmail.text = email
+            })
+        }
+    }
+    
+    func updateUser() {
+        if let userId = self.user.id, userId.count > 0 {
+            self.ref.child("users").child(userId).updateChildValues([
+                "firstName" : self.txtFirstName.text!,
+                "lastName" : self.txtLastName.text!,
+            ])
+            let user = User(id: self.user.id, firstName: self.txtFirstName.text, lastName: self.txtLastName.text, email: self.user.email, profilePicture: "")
+            UserManager.sharedManager().activeUser = user
+            
+            HMMessage.showSuccessWithMessage(message: "Profile updated successfully.")
+        }
+        
     }
 }

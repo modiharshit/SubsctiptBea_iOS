@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class DetailVC: HMBaseVC {
 
+    var user = User()
+    var subscriptionData = Subscription()
+    
     @IBOutlet weak var lblTitle: UILabel!
     
     @IBOutlet weak var txtTitle: HMTextField!
@@ -24,19 +28,48 @@ class DetailVC: HMBaseVC {
         super.viewDidLoad()
     }
     
-    class func instantiate() -> SignupVC {
-        return UIStoryboard.main().instantiateViewController(withIdentifier: SignupVC.identifier()) as! SignupVC
+    override func viewWillAppear(_ animated: Bool) {
+        self.user = UserManager.sharedManager().activeUser
     }
+    
+    class func instantiate() -> DetailVC {
+        return UIStoryboard.main().instantiateViewController(withIdentifier: DetailVC.identifier()) as! DetailVC
+    }
+    
+    
     
     @IBAction func btnBackAction(_ sender: Any) {
         self.popVC()
     }
     
     @IBAction func btnSaveAction(_ sender: Any) {
+        self.saveSubscription()
+        HMMessage.showSuccessWithMessage(message: "Subscription added successfully")
+        self.popVC()
     }
     
     @IBAction func btnDeleteSubscriptionAction(_ sender: Any) {
+        self.deleteSubscription()
     }
     
+}
+
+extension DetailVC {
+    func saveSubscription() {
+        let timeStampId = Int(self.timestamp)
+        self.ref.child("users").child(self.user.id!).child("subscriptions").child("\(timeStampId)").setValue([
+            "id": "\(timeStampId)",
+            "title" : "\(self.txtTitle.text!)"
+            
+        ])
+    }
     
+    func deleteSubscription() {
+        if let id = self.subscriptionData.id {
+            self.ref.child("users").child(self.user.id!).child("subscriptions").child(id).removeValue()
+            
+        }
+        HMMessage.showSuccessWithMessage(message: "Deleted successfully")
+        self.popVC()
+    }
 }

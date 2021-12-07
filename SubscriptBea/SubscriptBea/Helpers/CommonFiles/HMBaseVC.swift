@@ -12,6 +12,7 @@ import Firebase
 class HMBaseVC: UIViewController {
     
     let ref = Database.database().reference()
+    let timestamp = NSDate().timeIntervalSince1970
     
     class func identifier() -> String {
         return String(describing: self)
