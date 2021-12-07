@@ -47,6 +47,7 @@ class HomeVC: HMBaseVC {
     
     @IBAction func btnPlusAction(_ sender: Any) {
         let obj = DetailVC.instantiate()
+        obj.isNew = true
         self.push(vc: obj)
     }
 }
