@@ -20,6 +20,13 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let obj = DetailVC.instantiate()
+        obj.subscriptionData = self.arrSubscriptions[indexPath.row]
+        obj.isNew = false
+        self.push(vc: obj)
+    }
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
         // action one

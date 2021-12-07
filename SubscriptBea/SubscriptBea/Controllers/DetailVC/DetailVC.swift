@@ -57,6 +57,8 @@ class DetailVC: HMBaseVC {
     
     func loadData() {
         self.txtTitle.text = self.subscriptionData.subscriptionTitle
+        self.txtSubscriptionType.selectedItem = self.subscriptionData.subscriptionType
+        self.txtStartDate.date = self.subscriptionData.subscriptionStartDate
     }
     
     
@@ -120,8 +122,10 @@ extension DetailVC {
         let timeStampId = Int(self.timestamp)
         self.ref.child("users").child(self.user.id!).child("subscriptions").child("\(timeStampId)").setValue([
             "id": "\(timeStampId)",
-            "title" : "\(self.txtTitle.text!)"
-            
+            "title" : "\(self.txtTitle.text!)",
+            "type": self.txtSubscriptionType.selectedItem as Any,
+            "startDate": self.txtStartDate.date?.gmtString() ?? Date().gmtString(),
+            "amount": self.txtAmount.text!
         ])
     }
     
@@ -138,7 +142,9 @@ extension DetailVC {
         if let userId = self.user.id, let id = self.subscriptionData.id {
             self.ref.child("users").child(userId).child("subscriptions").child(id).updateChildValues([
                 "title" : self.txtTitle.text!,
-                
+                "type": self.txtSubscriptionType.selectedItem as Any,
+                "startDate": self.txtStartDate.date?.gmtString() ?? Date().gmtString(),
+                "amount": self.txtAmount.text!
             ])
             
             HMMessage.showSuccessWithMessage(message: "Profile updated successfully.")
@@ -152,7 +158,7 @@ extension DetailVC: IQDropDownTextFieldDelegate {
     // MARK: - IQDropDownTextFieldDelegate
     
     @objc func doneAction(_ sender : IQDropDownTextField) {
-        self.subscriptionData.subscriptionStartDate = sender.dateTimePicker.date
-        self.txtStartDate.date = sender.dateTimePicker.date
+        self.subscriptionData.subscriptionStartDate = sender.datePicker.date
+        self.txtStartDate.date = sender.datePicker.date
     }
 }

@@ -40,6 +40,7 @@ class HomeTableViewCell: UITableViewCell {
         self.lblTitle.text = subscriptionData.subscriptionTitle
         self.lblAmount.text = subscriptionData.subscriptionAmount
         self.lblDueDate.text = subscriptionData.subscriptionType
+        
     }
     
 }
