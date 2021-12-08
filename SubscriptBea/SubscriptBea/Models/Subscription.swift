@@ -54,11 +54,11 @@ class Subscription: NSObject, Mappable, NSCopying, NSCoding {
      - parameter map: A mapping from ObjectMapper
      */
     public func mapping(map: Map) {
-        id <- map["_id"]
-        subscriptionTitle <- map["subscriptionTitle"]
-        subscriptionType <- map["subscriptionType"]
-        subscriptionAmount <- map["subscriptionAmount"]
-        subscriptionStartDate <- map["subscriptionStartDate"]
+        id <- map["id"]
+        subscriptionTitle <- map["title"]
+        subscriptionType <- map["type"]
+        subscriptionAmount <- map["amount"]
+        subscriptionStartDate <- (map["startDate"], DateFormatterTransform(dateFormatter: serverDefaultDateTimeFormatter()))
     }
     
     // MARK: NSCoding Protocol

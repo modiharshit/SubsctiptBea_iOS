@@ -59,6 +59,11 @@ class DetailVC: HMBaseVC {
         self.txtTitle.text = self.subscriptionData.subscriptionTitle
         self.txtSubscriptionType.selectedItem = self.subscriptionData.subscriptionType
         self.txtStartDate.date = self.subscriptionData.subscriptionStartDate
+        
+        if let amountString = self.subscriptionData.subscriptionAmount {
+            let number = NumberFormatter().number(from: amountString)
+            self.txtAmount.text = number?.commaFormattedAmountStringSingleFraction(showSymbol: true)
+        }
     }
     
     
@@ -118,6 +123,7 @@ class DetailVC: HMBaseVC {
 }
 
 extension DetailVC {
+    
     func saveSubscription() {
         let timeStampId = Int(self.timestamp)
         self.ref.child("users").child(self.user.id!).child("subscriptions").child("\(timeStampId)").setValue([
@@ -149,7 +155,6 @@ extension DetailVC {
             
             HMMessage.showSuccessWithMessage(message: "Profile updated successfully.")
         }
-        
     }
 }
 

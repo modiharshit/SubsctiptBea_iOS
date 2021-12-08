@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import ObjectMapper
 
 class HomeVC: HMBaseVC {
 
@@ -67,20 +68,10 @@ extension HomeVC {
                         let snap = child as! DataSnapshot
                         let placeDict = snap.value as! [String: Any]
                         
-                        let id = placeDict["id"] as! String
-                        let title = placeDict["title"] as! String
-                        let type = placeDict["type"] as! String
-                        let startDate = placeDict["startDate"] as! String
-                        let amount = placeDict["amount"] as! String
+                        if let subscription: Subscription = Mapper<Subscription>().map(JSON: placeDict) {
+                            self.arrSubscriptions.append(subscription)
+                        }
                         
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "MMM d, y"
-                        let date = dateFormatter.date(from: startDate)
-                        
-                        //let tDate = startDate.
-                        let subscriptionData = Subscription(id: id, subscriptionTitle: title, subscriptionType: type, subscriptionAmount: amount, subscriptionStartDate: date)
-                        print(subscriptionData.subscriptionStartDate)
-                        self.arrSubscriptions.append(subscriptionData)
                     }
                     self.tableView.reloadData()
                 }

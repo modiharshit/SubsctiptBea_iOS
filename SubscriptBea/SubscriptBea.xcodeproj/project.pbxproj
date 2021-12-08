@@ -31,6 +31,7 @@
 		FA99966D27534ACF0089E563 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99966C27534ACF0089E563 /* UserManager.swift */; };
 		FA99966F27534BDB0089E563 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99966E27534BDB0089E563 /* User.swift */; };
 		FA99967227534DD70089E563 /* AppDelegate+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99967127534DD70089E563 /* AppDelegate+Additions.swift */; };
+		FAC54701276083130078985D /* NSNumber+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC54700276083130078985D /* NSNumber+Additions.swift */; };
 		FACE961A27530FFE0066C6E9 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE961827530FFE0066C6E9 /* HomeTableViewCell.swift */; };
 		FACE961B27530FFE0066C6E9 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACE961927530FFE0066C6E9 /* HomeTableViewCell.xib */; };
 		FACE961D27531B610066C6E9 /* HomeVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE961C27531B610066C6E9 /* HomeVC+TableView.swift */; };
@@ -71,6 +72,7 @@
 		FA99966C27534ACF0089E563 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		FA99966E27534BDB0089E563 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA99967127534DD70089E563 /* AppDelegate+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Additions.swift"; sourceTree = "<group>"; };
+		FAC54700276083130078985D /* NSNumber+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNumber+Additions.swift"; sourceTree = "<group>"; };
 		FACE961827530FFE0066C6E9 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		FACE961927530FFE0066C6E9 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		FACE961C27531B610066C6E9 /* HomeVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+TableView.swift"; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			children = (
 				FA70A19027517F5300D9686D /* String+Attributions.swift */,
 				FA70A19127517F5300D9686D /* String+Additions.swift */,
+				FAC54700276083130078985D /* NSNumber+Additions.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				FA99966D27534ACF0089E563 /* UserManager.swift in Sources */,
 				FA70A18427517B3500D9686D /* HMTextField.swift in Sources */,
 				FACE961A27530FFE0066C6E9 /* HomeTableViewCell.swift in Sources */,
+				FAC54701276083130078985D /* NSNumber+Additions.swift in Sources */,
 				FA99967227534DD70089E563 /* AppDelegate+Additions.swift in Sources */,
 				FA70A18127517B3500D9686D /* HMNavigationController.swift in Sources */,
 				FA70A17127516C4100D9686D /* ProfileVC.swift in Sources */,
