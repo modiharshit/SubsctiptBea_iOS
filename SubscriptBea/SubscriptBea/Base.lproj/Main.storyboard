@@ -629,7 +629,7 @@
                                     <constraint firstAttribute="height" constant="64" id="H4L-Hk-MOY"/>
                                     <constraint firstAttribute="width" constant="64" id="IWz-y8-1IF"/>
                                 </constraints>
-                                <color key="tintColor" red="0.1396433711" green="0.18898770209999999" blue="0.33196055889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.97674769159999997" green="0.88825094699999996" blue="0.25185054540000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="ic_plus"/>
                                 <connections>
                                     <action selector="btnPlusAction:" destination="3ol-il-9vg" eventType="touchUpInside" id="pef-b5-g6o"/>
