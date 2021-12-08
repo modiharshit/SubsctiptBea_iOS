@@ -141,7 +141,7 @@ extension ProfileVC {
                 let firstName = value?["firstName"] as? String ?? ""
                 let lastName = value?["lastName"] as? String ?? ""
                 let email = value?["email"] as? String ?? ""
-                let profileImageUrl =  value?["profileImage"] as? String ?? ""
+                let profileImageUrl =  value?["profilePicture"] as? String ?? ""
                 
                 let user = User(id: userId, firstName: firstName, lastName: lastName, email: email, profilePicture: profileImageUrl)
                 UserManager.sharedManager().activeUser = user
@@ -149,7 +149,7 @@ extension ProfileVC {
                 self.txtFirstName.text = firstName
                 self.txtLastName.text = lastName
                 self.txtEmail.text = email
-                self.imgProfile.sd_setImage(with: URL(string: profileImageUrl ), placeholderImage: UIImage(named: "ic_plus.png"))
+                self.imgProfile.sd_setImage(with: URL(string: profileImageUrl ), placeholderImage: UIImage(named: "ic_logo.png"))
                 
                 print(profileImageUrl)
             })
