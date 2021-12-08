@@ -21,4 +21,7 @@ pod 'SVProgressHUD'
 
 # Object Mapping
 pod 'ObjectMapper'
+
+# Image download async
+pod 'SDWebImage'
 end

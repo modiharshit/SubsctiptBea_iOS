@@ -32,6 +32,7 @@
 		FA99966F27534BDB0089E563 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99966E27534BDB0089E563 /* User.swift */; };
 		FA99967227534DD70089E563 /* AppDelegate+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99967127534DD70089E563 /* AppDelegate+Additions.swift */; };
 		FAC54701276083130078985D /* NSNumber+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC54700276083130078985D /* NSNumber+Additions.swift */; };
+		FAC5470327609E7F0078985D /* HMImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC5470227609E7F0078985D /* HMImageView.swift */; };
 		FACE961A27530FFE0066C6E9 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE961827530FFE0066C6E9 /* HomeTableViewCell.swift */; };
 		FACE961B27530FFE0066C6E9 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACE961927530FFE0066C6E9 /* HomeTableViewCell.xib */; };
 		FACE961D27531B610066C6E9 /* HomeVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE961C27531B610066C6E9 /* HomeVC+TableView.swift */; };
@@ -73,6 +74,7 @@
 		FA99966E27534BDB0089E563 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA99967127534DD70089E563 /* AppDelegate+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Additions.swift"; sourceTree = "<group>"; };
 		FAC54700276083130078985D /* NSNumber+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNumber+Additions.swift"; sourceTree = "<group>"; };
+		FAC5470227609E7F0078985D /* HMImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMImageView.swift; sourceTree = "<group>"; };
 		FACE961827530FFE0066C6E9 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		FACE961927530FFE0066C6E9 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		FACE961C27531B610066C6E9 /* HomeVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeVC+TableView.swift"; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				FA70A17F27517B3500D9686D /* HMView.swift */,
 				FACE961E27531E880066C6E9 /* HMBaseVC.swift */,
 				FA99966C27534ACF0089E563 /* UserManager.swift */,
+				FAC5470227609E7F0078985D /* HMImageView.swift */,
 			);
 			path = CommonFiles;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				FA70A17727516C7D00D9686D /* SignupVC.swift in Sources */,
 				FA70A18627517B3500D9686D /* HMView.swift in Sources */,
 				FACE961D27531B610066C6E9 /* HomeVC+TableView.swift in Sources */,
+				FAC5470327609E7F0078985D /* HMImageView.swift in Sources */,
 				FA99966D27534ACF0089E563 /* UserManager.swift in Sources */,
 				FA70A18427517B3500D9686D /* HMTextField.swift in Sources */,
 				FACE961A27530FFE0066C6E9 /* HomeTableViewCell.swift in Sources */,

@@ -9,6 +9,10 @@
 import UIKit
 import AVKit
 import MobileCoreServices
+import Firebase
+import FirebaseStorage
+import SDWebImage
+import ObjectMapper
 
 class ProfileVC: HMBaseVC {
 
@@ -84,7 +88,11 @@ class ProfileVC: HMBaseVC {
     }
     
     @IBAction func btnUpdateProfileAction(_ sender: Any) {
-        self.updateUser()
+        if self.profileImage == nil {
+            self.updateUser()
+        } else {
+            self.uploadMedia()
+        }
     }
     
     @IBAction func btnLogoutAction(_ sender: Any) {
@@ -133,14 +141,17 @@ extension ProfileVC {
                 let firstName = value?["firstName"] as? String ?? ""
                 let lastName = value?["lastName"] as? String ?? ""
                 let email = value?["email"] as? String ?? ""
+                let profileImageUrl =  value?["profileImage"] as? String ?? ""
                 
-                
-                let user = User(id: userId, firstName: firstName, lastName: lastName, email: email, profilePicture: "")
+                let user = User(id: userId, firstName: firstName, lastName: lastName, email: email, profilePicture: profileImageUrl)
                 UserManager.sharedManager().activeUser = user
                 
                 self.txtFirstName.text = firstName
                 self.txtLastName.text = lastName
                 self.txtEmail.text = email
+                self.imgProfile.sd_setImage(with: URL(string: profileImageUrl ), placeholderImage: UIImage(named: "ic_plus.png"))
+                
+                print(profileImageUrl)
             })
         }
     }
@@ -156,6 +167,41 @@ extension ProfileVC {
             
             HMMessage.showSuccessWithMessage(message: "Profile updated successfully.")
         }
-        
+    }
+    
+    func updateUserProfileImage(imageUrl: String?) {
+        if let userId = self.user.id, userId.count > 0 {
+            self.ref.child("users").child(userId).updateChildValues([
+                "firstName" : self.txtFirstName.text!,
+                "lastName" : self.txtLastName.text!,
+                "profilePicture" : imageUrl
+            ])
+            let user = User(id: self.user.id, firstName: self.txtFirstName.text, lastName: self.txtLastName.text, email: self.user.email, profilePicture: imageUrl)
+            UserManager.sharedManager().activeUser = user
+            
+            HMMessage.showSuccessWithMessage(message: "Profile updated successfully.")
+        }
+    }
+    
+    func uploadMedia() {
+        if let userId = self.user.id {
+            let storageRef = Storage.storage().reference().child("\(userId)\(self.timestamp).png")
+            if let img = self.profileImage {
+                if let imageData = img.jpeg(.lowest) {
+                    storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
+                        if error != nil {
+                            print("error")
+                            return}
+                        else{
+                            storageRef.downloadURL(completion: { (url, error) in
+                                print("Image URL: \((url?.absoluteString)!)")
+                                self.updateUserProfileImage(imageUrl: (url?.absoluteString)!)
+                            })
+                        }
+                    })
+                }
+
+            }
+        }
     }
 }
