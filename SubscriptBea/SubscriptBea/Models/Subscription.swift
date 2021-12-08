@@ -18,9 +18,9 @@ class Subscription: NSObject, Mappable, NSCopying, NSCoding {
     var subscriptionTitle: String?
     var subscriptionType: String?
     var subscriptionAmount: String?
-    var subscriptionStartDate: Date?
+    var subscriptionStartDate: String?
     
-    init(id: String?, subscriptionTitle: String?, subscriptionType: String?, subscriptionAmount: String?, subscriptionStartDate: Date?) {
+    init(id: String?, subscriptionTitle: String?, subscriptionType: String?, subscriptionAmount: String?, subscriptionStartDate: String?) {
         self.id = id
         self.subscriptionTitle = subscriptionTitle
         self.subscriptionType = subscriptionType
@@ -58,7 +58,8 @@ class Subscription: NSObject, Mappable, NSCopying, NSCoding {
         subscriptionTitle <- map["title"]
         subscriptionType <- map["type"]
         subscriptionAmount <- map["amount"]
-        subscriptionStartDate <- (map["startDate"], DateFormatterTransform(dateFormatter: serverDefaultDateTimeFormatter()))
+        //subscriptionStartDate <- (map["startDate"], DateFormatterTransform(dateFormatter: serverDefaultDateTimeFormatter()))
+        subscriptionStartDate <- map["startDate"]
     }
     
     // MARK: NSCoding Protocol
@@ -68,7 +69,7 @@ class Subscription: NSObject, Mappable, NSCopying, NSCoding {
         self.subscriptionTitle = aDecoder.decodeObject(forKey: "subscriptionTitle") as? String
         self.subscriptionType = aDecoder.decodeObject(forKey: "subscriptionType") as? String
         self.subscriptionAmount = aDecoder.decodeObject(forKey: "subscriptionAmount") as? String
-        self.subscriptionStartDate = aDecoder.decodeObject(forKey: "subscriptionStartDate") as? Date
+        //self.subscriptionStartDate = aDecoder.decodeObject(forKey: "subscriptionStartDate") as? Date
         
     }
 

@@ -58,14 +58,26 @@ class DetailVC: HMBaseVC {
     func loadData() {
         self.txtTitle.text = self.subscriptionData.subscriptionTitle
         self.txtSubscriptionType.selectedItem = self.subscriptionData.subscriptionType
-        self.txtStartDate.date = self.subscriptionData.subscriptionStartDate
+        
+        if let strDate = self.subscriptionData.subscriptionStartDate {
+            
+            self.txtStartDate.date = getDate(strDate: strDate)
+        }
         
         if let amountString = self.subscriptionData.subscriptionAmount {
             let number = NumberFormatter().number(from: amountString)
-            self.txtAmount.text = number?.commaFormattedAmountStringSingleFraction(showSymbol: true)
+            self.txtAmount.text = number?.commaFormattedAmountStringSingleFraction(showSymbol: false)
         }
     }
     
+    func getDate(strDate: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale.current
+        print(dateFormatter.date(from: strDate))
+        return dateFormatter.date(from: strDate) // replace Date String
+    }
     
     func initializeTextField() {
         
@@ -130,7 +142,7 @@ extension DetailVC {
             "id": "\(timeStampId)",
             "title" : "\(self.txtTitle.text!)",
             "type": self.txtSubscriptionType.selectedItem as Any,
-            "startDate": self.txtStartDate.date?.gmtString() ?? Date().gmtString(),
+            "startDate": self.txtStartDate.date?.getFullDateInDefaultFormat() ?? Date().getFullDateInDefaultFormat(),
             "amount": self.txtAmount.text!
         ])
     }
@@ -149,7 +161,7 @@ extension DetailVC {
             self.ref.child("users").child(userId).child("subscriptions").child(id).updateChildValues([
                 "title" : self.txtTitle.text!,
                 "type": self.txtSubscriptionType.selectedItem as Any,
-                "startDate": self.txtStartDate.date?.gmtString() ?? Date().gmtString(),
+                "startDate": self.txtStartDate.date?.getFullDateInDefaultFormat() ?? Date().getFullDateInDefaultFormat(),
                 "amount": self.txtAmount.text!
             ])
             
@@ -163,7 +175,6 @@ extension DetailVC: IQDropDownTextFieldDelegate {
     // MARK: - IQDropDownTextFieldDelegate
     
     @objc func doneAction(_ sender : IQDropDownTextField) {
-        self.subscriptionData.subscriptionStartDate = sender.datePicker.date
         self.txtStartDate.date = sender.datePicker.date
     }
 }
