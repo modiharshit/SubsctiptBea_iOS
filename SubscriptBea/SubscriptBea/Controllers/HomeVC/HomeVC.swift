@@ -22,6 +22,8 @@ class HomeVC: HMBaseVC {
     var user = User()
     var arrSubscriptions : [Subscription] = []
     
+    var imgName = "1"
+    
     //MARK:- CLASS METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +73,9 @@ extension HomeVC {
                         if let subscription: Subscription = Mapper<Subscription>().map(JSON: placeDict) {
                             self.arrSubscriptions.append(subscription)
                         }
-                        
                     }
+                    self.tableView.reloadData()
+                } else {
                     self.tableView.reloadData()
                 }
             })

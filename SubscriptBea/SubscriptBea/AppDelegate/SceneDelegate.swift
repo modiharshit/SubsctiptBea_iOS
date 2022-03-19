@@ -47,6 +47,39 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let urlPath : String = url.absoluteString
+        print(urlPath)
+
+        if self.isContainString(urlPath, subString: "1") {
+            //here go to firstViewController view controller
+            openImage(name: "1")
+        }
+        else if self.isContainString(urlPath, subString: "2") {
+            //here go to secondViewController view controller
+            openImage(name: "2")
+        }
+        else {
+            //here go to thirdViewController view controller
+            openImage(name: "3")
+        }
+
+        return true
+    }
+    
+    func isContainString(_ string: String, subString: String) -> Bool {
+        if (string as NSString).range(of: subString).location != NSNotFound { return true }
+        else { return false }
+    }
+    
+    func openImage(name:String) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+        vc.imgName = name
+        self.window?.rootViewController = vc
+        self.window?.makeKeyAndVisible()
+    }
+    
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
