@@ -60,5 +60,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCalendarsUsageDescription</key>
+	<string>To Add scubscriptions to calendar</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>To Manage Subscriptions in reminder application</string>
 </dict>
 </plist>

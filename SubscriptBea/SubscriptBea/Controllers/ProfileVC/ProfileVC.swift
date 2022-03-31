@@ -28,6 +28,8 @@ class ProfileVC: HMBaseVC {
     @IBOutlet weak var btnUpdateProfile: HMButton!
     @IBOutlet weak var btnLogout: HMButton!
     
+    @IBOutlet weak var btnNotifications: UISwitch!
+    
     var profileImage: UIImage?
     var imagePicker = UIImagePickerController()
     
@@ -47,6 +49,12 @@ class ProfileVC: HMBaseVC {
         
         self.getUserProfile()
         self.getSubscriptions()
+        
+        if UserDefaults.standard.valueExists(forKey: "isNotificationEnabled") {
+            if let isNotificationEnabled = UserDefaults.standard.value(forKey: "isNotificationEnabled"), isNotificationEnabled as! Bool {
+                self.btnNotifications.isOn = true
+            }
+        }
     }
     
     func showLogoutConfirmation() {
@@ -174,7 +182,7 @@ extension ProfileVC {
             self.ref.child("users").child(userId).updateChildValues([
                 "firstName" : self.txtFirstName.text!,
                 "lastName" : self.txtLastName.text!,
-                "profilePicture" : imageUrl
+                "profilePicture" : imageUrl ?? ""
             ])
             let user = User(id: self.user.id, firstName: self.txtFirstName.text, lastName: self.txtLastName.text, email: self.user.email, profilePicture: imageUrl)
             UserManager.sharedManager().activeUser = user
@@ -204,4 +212,18 @@ extension ProfileVC {
             }
         }
     }
+    
+    @IBAction func btnNotificationAction(_ sender: UISwitch) {
+        
+        if sender.isOn {
+            UserDefaults.standard.set(true, forKey: "isNotificationEnabled")
+            self.scheduleNotification(title: "Text", msg: "Message")
+        } else {
+            //REMOVE NOTIFICATION
+            UserDefaults.standard.set(false, forKey: "isNotificationEnabled")
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        }
+        
+    }
+
 }
