@@ -13,12 +13,14 @@ import IQDropDownTextField
 
 class DetailVC: HMBaseVC {
 
-    var type = ["Weekly","Bi-weekly","Monthly","Quaterly","Half-yearly","Annual"]
+    var type = ["Daily","Weekly","Bi-weekly","Monthly","Quaterly","Half-yearly","Annual"]
     
     var user = User()
     var subscriptionData = Subscription()
     var isNew : Bool = false
     var datePicker = UIDatePicker()
+    
+    var isNotificationEnabled : Bool = false
     
     @IBOutlet weak var lblTitle: UILabel!
     
@@ -44,6 +46,13 @@ class DetailVC: HMBaseVC {
             self.btnDeleteSubscription.isHidden = false
             self.btnSave.setTitle("Update", for: .normal)
             self.loadData()
+        }
+        
+        if UserDefaults.standard.valueExists(forKey: "isNotificationEnabled") {
+            if let isNotificationsEnabled = UserDefaults.standard.value(forKey: "isNotificationEnabled"), isNotificationsEnabled as! Bool {
+                
+                self.isNotificationEnabled = isNotificationsEnabled as! Bool
+            }
         }
     }
     
@@ -125,6 +134,7 @@ class DetailVC: HMBaseVC {
         }
         
         HMMessage.showSuccessWithMessage(message: self.isNew ? "Subscription Added successfully" : "Updated Successfully")
+        
         self.popVC()
     }
     
@@ -145,6 +155,13 @@ extension DetailVC {
             "startDate": self.txtStartDate.date?.getFullDateInDefaultFormat() ?? Date().getFullDateInDefaultFormat(),
             "amount": self.txtAmount.text!
         ])
+        
+        HMMessage.showSuccessWithMessage(message: "Subscription saved successfully.")
+        
+        if self.isNotificationEnabled {
+            self.scheduleNotification(title: "Subscription saved", msg: "Your subscription of \(self.txtTitle.text!) was added successfully")
+        }
+        
     }
     
     func deleteSubscription() {
@@ -153,6 +170,11 @@ extension DetailVC {
             
         }
         HMMessage.showSuccessWithMessage(message: "Deleted successfully")
+        
+        if self.isNotificationEnabled {
+            self.scheduleNotification(title: "Subscription deleted", msg: "Your subscription was deleted successfully")
+        }
+        
         self.popVC()
     }
     
@@ -165,7 +187,12 @@ extension DetailVC {
                 "amount": self.txtAmount.text!
             ])
             
-            HMMessage.showSuccessWithMessage(message: "Profile updated successfully.")
+            HMMessage.showSuccessWithMessage(message: "Subscription updated successfully.")
+            
+            if self.isNotificationEnabled {
+                self.scheduleNotification(title: "Subscription updated", msg: "Your subscription of \(self.txtTitle.text!) was updated successfully.")
+            }
+            
         }
     }
 }

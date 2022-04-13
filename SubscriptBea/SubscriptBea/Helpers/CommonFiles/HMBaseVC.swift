@@ -42,19 +42,15 @@ class HMBaseVC: UIViewController {
         let center = UNUserNotificationCenter.current()
         
         let content = UNMutableNotificationContent()
-        content.title = "\(title ?? "Add your routine")"
-        content.body = "\(msg ?? "Your reminder")"
+        content.title = "\(title ?? "Notification")"
+        content.body = "\(msg ?? "Notification")"
         content.categoryIdentifier = "daily_reminder"
-        content.userInfo = ["customData": "fizzbuzz"]
+        
         content.sound = UNNotificationSound.default
         content.badge = 1
         
-        var dateComponents = DateComponents()
-        dateComponents.hour = 10
-        dateComponents.minute = 30
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
         
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
         center.add(request)
     }
 

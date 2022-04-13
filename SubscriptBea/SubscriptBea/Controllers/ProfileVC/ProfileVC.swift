@@ -53,7 +53,11 @@ class ProfileVC: HMBaseVC {
         if UserDefaults.standard.valueExists(forKey: "isNotificationEnabled") {
             if let isNotificationEnabled = UserDefaults.standard.value(forKey: "isNotificationEnabled"), isNotificationEnabled as! Bool {
                 self.btnNotifications.isOn = true
+            } else {
+                self.btnNotifications.isOn = false
             }
+        } else {
+            self.btnNotifications.isOn = false
         }
     }
     
@@ -217,11 +221,12 @@ extension ProfileVC {
         
         if sender.isOn {
             UserDefaults.standard.set(true, forKey: "isNotificationEnabled")
-            self.scheduleNotification(title: "Text", msg: "Message")
+            self.scheduleNotification(title: "Notification enabled successfully.", msg: "Message")
         } else {
             //REMOVE NOTIFICATION
             UserDefaults.standard.set(false, forKey: "isNotificationEnabled")
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            self.scheduleNotification(title: "Notification disabled successfully.", msg: "Message")
         }
         
     }

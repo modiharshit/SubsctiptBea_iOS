@@ -25,5 +25,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         completionHandler(NCUpdateResult.newData)
     }
+ 
+    @IBAction func btnAddNewSubscriptionAction(_ sender: UIButton) {
+        if let url = URL(string: "open://")
+        {
+            self.extensionContext?.open(url, completionHandler: nil)
+        }
+    }
     
 }

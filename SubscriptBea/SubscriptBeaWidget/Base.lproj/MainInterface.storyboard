@@ -18,6 +18,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mD2-G3-eJh">
                                 <rect key="frame" x="8" y="52" width="304" height="64"/>
                                 <state key="normal" title="Add New Subsciption" image="ic_plus"/>
+                                <connections>
+                                    <action selector="btnAddNewSubscriptionAction:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="5VX-sX-yto"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
